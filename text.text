@@ -1,0 +1,42 @@
+1. Blog.Objects.all()
+2. Blog.objects.get(pk=1)
+3. Blog.objects.get(name='Gray Group')
+4. Blog.objects.annotate(text_len=Length('tagline')).filter(text_len__gt=100)
+5. Author.objects.filter(email='rtorres@hayes-smith.org')
+6. Author.objects.filter(email__endswith='gmail.com')
+7. Blog.objects.all().values('name').order_by('name')
+8. Blog.objects.all()[::-1][:10]
+9. Entry.objects.get(headline='Sense nation benefit.')
+10. Entry.objects.all().values('body_text')
+11. Entry.objects.all().filter(pub_date__year = '2023')
+12. Entry.objects.filter(pub_date = datetime.today())
+13. Entry.objects.filter(number_of_comments__gte=10).values('headline')
+14.  Entry.objects.annotate(res_count=Sum('number_of_comments')).filter(res_count__gt=100).values('headline', 'res_count')
+15.
+16.
+17. Entry.objects.annotate(res_rating=Sum('rating')).filter(res_rating__gt=8).values('headline', 'res_rating')
+18. Entry.objects.all().values('headline', 'number_of_comments').order_by('-number_of_comments')
+19.
+20. Entry.objects.annotate(res_max_rating=Max('rating')).values('headline', 'res_max_rating').order_by('-res_max_rating')[:10]
+21. Blog.objects.all().order_by('-id')[:1].values('id')
+22. Author.objects.all().order_by('-id')[:1].values('id')
+23. Entry.objects.all().order_by('-id')[:1].values('id')
+24. Entry.objects.annotate(res_avg=Avg('number_of_comments')).values('headline','res_avg')
+25. Entry.objects.annotate(max_number_comments=Max('number_of_comments')).order_by('-max_number_comments').values('headline', 'max_number_comments')[:1]
+26. Entry.objects.annotate(min_res=Min('rating')).order_by('min_res').values('headline', 'min_res')[:1]
+27. Entry.objects.annotate(all_res=Sum('rating')).values('headline', 'all_res')
+40. Entry.objects.filter(number_of_comments__lt=20)
+41. Entry.objects.annotate(res_max_rating=Max('rating')).values('blog_id' ,'headline' ,'res_max_rating').order_by('-res_max_rating')
+43. Entry.objects.annotate(res_count=Count('headline', distinct=True)).filter(pub_date__year = 2023).values('res_count', 'pub_date__year')
+44. Entry.objects.annotate(res_max=Max('number_of_pingbacks')).values('headline', 'res_max').order_by('-res_max')
+45. Entry.objects.annotate(res_sum=Sum('id')).values('blog_id', 'res_sum')
+46. Entry.objects.annotate(res_avg=Avg('rating')).values('blog_id', 'res_avg'
+47. Entry.objects.annotate(res=Count('headline', distinct=True), avg_res= Avg('headline', distinct=True)).values('authors__name', 'res', 'avg_res')
+48.
+49. Blog.objects.annotate(author_count=Count('entry__authors', distinct=True)).values('name', 'author_count')
+50. Entry.objects.filter(pub_date = datetime.today())
+
+
+Author.objects.annotate(entry_count=Count('entry')).values('name', 'entry_count')
+
+Blog.objects.annotate(avtor._count=Count('entry__authors', distinct=True)).values('name', 'avtor_count')
